@@ -44,6 +44,10 @@ class  EloquentApiQuestionQuery implements QuestionQueryInterface {
             $query->whereNotIn('id', (array)$options['except']);
         }
 
+        if (isset($options['id'])) {
+            $query->whereIn('id', (array)$options['id']);
+        }
+
         if (isset($options['status'])) {
             $query->where('status', '=', $options['status']);
         }

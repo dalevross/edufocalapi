@@ -1,43 +1,28 @@
 # EduFocal API
-A REST api for EduFocal data; includes:
+
+This document is my scratchpad for now, and is not definitive of the final API. It will change without notice.
+
 - Questions
+- Answers
 - Tests
 - Courseworks
 - Users
 - Schools
-- Answers
-
-
+- Messages
 
 ## Questions
 * Create
-* List by (teacher, subject, topic, id, list of ids, parent_id)
-
-
+* List by (teacher, subject, topic, id, list of ids, status)
 
 /questions
 /questions/id/answers
 
-/teachers
-/teachers/id/questions
 
-/subjects
-/subjects/id/questions
-
-/topics
-/topics/id/questions
-/topics/id,id,id/questions
-
-
-/messages
-/users/id/messages
-/messages/id,id,id
-
-
+# Exposed IDs
 Want to use GUIDs for all resources. Will have to plan and implement a migration from the existing integer-based
 IDs to guids.
 
-A suggestion?
+#### A suggestion?
 1. Add uid column to all tables
 2. Run migrations to set all these new uids
 3. Add foreign key columns for these new uids in corresponding tables, such as (topic_uid)
