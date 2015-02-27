@@ -1,21 +1,22 @@
 <?php namespace Api\Http\Controllers;
 
+use League\Fractal\Manager;
+
 use Api\Http\Requests;
 use Api\Http\Controllers\ApiController;
-use Api\Question;
+use Api\Contracts\QuestionQueryInterface;
 use Api\Http\Transformers\QuestionTransformer;
-use League\Fractal\Manager;
 
 use Request;
 
 class QuestionController extends ApiController {
 
-    protected $question = null;
+    protected $quesQuery = null;
 
-    public function __construct(Manager $fractal, Question $question)
+    public function __construct(Manager $fractal, QuestionQueryInterface $quesQuery)
     {
         parent::__construct($fractal);
-        $this->question = $question;
+        $this->quesQuery = $quesQuery;
     }
 
     /**
@@ -25,7 +26,7 @@ class QuestionController extends ApiController {
      */
     public function index()
     {
-        $questions = $this->question->where('weight', '>', 1)->take(3)->get();
+        $questions = $this->quesQuery->getQuestions(Request::input());
         return $this->respondWithCollection($questions, new QuestionTransformer);
     }
 
