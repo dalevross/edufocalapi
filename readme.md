@@ -1,3 +1,22 @@
+To setup:
+
+Clone the repository
+```
+git clone https://github.com/EduFocal/api.git
+```
+
+Then
+```
+composer install
+```
+
+Then
+```
+php artisan serve
+```
+
+(Assuming you have the database which has not been made public.)
+
 # EduFocal API
 
 This document is my scratchpad for now, and is not definitive of the final API. It will change without notice.
