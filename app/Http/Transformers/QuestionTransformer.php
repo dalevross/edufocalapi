@@ -6,7 +6,8 @@ use League\Fractal\TransformerAbstract;
 class QuestionTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'questions'
+        'questions',
+        'topic'
     ];
 
     public function transform(Question $q)
@@ -24,6 +25,12 @@ class QuestionTransformer extends TransformerAbstract
     public function includeQuestions(Question $q)
     {
         $questions = $q->questions;
-        return $this->collection($questions, new QuestionTransformer);
+        return $this->collection($questions, $this);
+    }
+
+    public function includeTopic(Question $q)
+    {
+        $topic = $q->topic;
+        return $this->item($topic, new TopicTransformer);
     }
 }

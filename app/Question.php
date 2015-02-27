@@ -13,4 +13,14 @@ class Question extends Model {
     {
         return $this->hasMany('Api\Question');
     }
+
+    /*
+     * Relationship: Topic
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function topic()
+    {
+        return $this->belongsTo('Api\Topic');
+    }
 }
