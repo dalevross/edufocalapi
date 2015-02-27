@@ -19,6 +19,13 @@ class QuestionTransformer extends TransformerAbstract
             'choices' => $q->choices,
             'answer' => $q->accepted_answers,
             'parts' => $q->weight,
+            'status' => $q->status,
+            'links' => [
+                [
+                    'rel' => 'self',
+                    'uri' => '/questions/' . $q->id,
+                ]
+            ]
         ];
     }
 
