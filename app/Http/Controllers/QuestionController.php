@@ -1,15 +1,19 @@
 <?php namespace Api\Http\Controllers;
 
 use Api\Http\Requests;
-use Api\Http\Controllers\Controller;
+use Api\Http\Controllers\ApiController;
+use League\Fractal\Manager;
 
 use Illuminate\Http\Request;
 
-class QuestionController extends Controller {
+class QuestionController extends ApiController {
 
-    public function __construct(\Api\Question $question)
+    protected $question = null;
+
+    public function __construct(Manager $fractal, \Api\Question $question)
     {
-        return $question->all()->get();
+        parent::__construct($fractal);
+        $this->question = $question;
     }
 
 	/**
@@ -19,7 +23,18 @@ class QuestionController extends Controller {
 	 */
 	public function index()
 	{
-		//
+        $questions = $this->question->take(10)->get();
+
+        return $this->respondWithCollection($questions, function($q) {
+
+            return [
+                'id' => $q->id,
+                'body' => $q->question,
+                'choices' => $q->choices,
+                'answer' => $q->accepted_answers
+            ];
+
+        });
 	}
 
 	/**
