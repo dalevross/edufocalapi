@@ -6,6 +6,8 @@ use League\Fractal\Manager;
 
 use Api\Http\Controllers\Controller;
 
+use Request;
+
 class ApiController extends Controller {
 
     protected $statusCode = 200;
@@ -20,6 +22,7 @@ class ApiController extends Controller {
     public function __construct(Manager $fractal)
     {
         $this->fractal = new Manager();
+        $this->fractal->parseIncludes(explode(',', Request::input('include')));
     }
 
     public function getStatusCode()

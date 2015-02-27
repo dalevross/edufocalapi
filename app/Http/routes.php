@@ -21,3 +21,4 @@ Route::controllers([
 ]);
 
 Route::get('questions', 'QuestionController@index');
+Route::get('questions/{id}', 'QuestionController@show');

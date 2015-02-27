@@ -6,7 +6,7 @@ use Api\Question;
 use Api\Http\Transformers\QuestionTransformer;
 use League\Fractal\Manager;
 
-use Illuminate\Http\Request;
+use Request;
 
 class QuestionController extends ApiController {
 
@@ -25,7 +25,7 @@ class QuestionController extends ApiController {
      */
     public function index()
     {
-        $questions = $this->question->take(10)->get();
+        $questions = $this->question->where('weight', '>', 1)->take(3)->get();
         return $this->respondWithCollection($questions, new QuestionTransformer);
     }
 
@@ -46,7 +46,6 @@ class QuestionController extends ApiController {
      */
     public function store()
     {
-        //
     }
 
     /**
@@ -57,7 +56,8 @@ class QuestionController extends ApiController {
      */
     public function show($id)
     {
-        //
+        $question = $this->question->find($id);
+        return $this->respondWithItem($question, new QuestionTransformer);
     }
 
     /**
